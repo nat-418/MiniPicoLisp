@@ -1,4 +1,4 @@
-/* 13sep16abu
+/* 29nov17abu
  * (c) Software Lab. Alexander Burger
  */
 
@@ -330,7 +330,7 @@ int main(int ac, char *av[]) {
    char *p, buf[40];
 
    if ((ac -= 2) <= 0)
-		giveup("No input files");
+      giveup("No input files");
    if ((Bits = atoi(*++av)) == 0)
       Bits = (int)sizeof(char*) * 8;
    if ((fp = fopen("sym.d", "w")) == NULL)

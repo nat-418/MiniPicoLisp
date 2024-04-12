@@ -1,4 +1,4 @@
-/* 05apr17abu
+/* 30sep18abu
  * (c) Software Lab. Alexander Burger
  */
 
@@ -675,7 +675,9 @@ any doText(any x) {
    any nm1, nm2;
    cell c1, c2;
 
-   nm1 = name(data(c1) = evSym(x = cdr(x)));
+   if (isNil(data(c1) = evSym(x = cdr(x))))
+      return Nil;
+   nm1 = name(data(c1));
    if (!(c = getByte1(&i1, &w1, &nm1)))
       return Nil;
    Save(c1);
@@ -706,33 +708,30 @@ any doText(any x) {
    }
 }
 
-// (pre? 'sym1 'sym2) -> flg
-any doPreQ(any ex) {
+// (pre? 'any1 'any2) -> any2 | NIL
+any doPreQ(any x) {
+   any y, z;
    int c, i1, i2;
    word w1, w2;
-   any x, y;
    cell c1;
 
-   x = cdr(ex);
-   if (isNil(y = EVAL(car(x))))
-      return T;
-   NeedSymb(ex,y);
-   Push(c1, y);
-   x = cdr(x),  x = EVAL(car(x));
+   Push(c1, evSym(x = cdr(x)));
+   x = evSym(cdr(x));
    drop(c1);
+   if (isNil(data(c1)))
+      return x;
+   y = name(data(c1));
+   if (!(c = getByte1(&i1, &w1, &y)))
+      return x;
    if (isNil(x))
       return Nil;
-   NeedSymb(ex,x);
-   y = name(y);
-   if (!(c = getByte1(&i1, &w1, &y)))
-      return T;
-   x = name(x);
-   if (c != getByte1(&i2, &w2, &x))
+   z = name(x);
+   if (c != getByte1(&i2, &w2, &z))
       return Nil;
    for (;;) {
       if (!(c = getByte(&i1, &w1, &y)))
-         return T;
-      if (c != getByte(&i2, &w2, &x))
+         return x;
+      if (c != getByte(&i2, &w2, &z))
          return Nil;
    }
 }

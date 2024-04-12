@@ -1,4 +1,4 @@
-# 06oct14abu
+# 10jul18abu
 # (c) Software Lab. Alexander Burger
 
 ### Symbol ###
@@ -33,8 +33,7 @@
       (list '@ (list 'pass (box (getd "F")))) ) )
 
 (de subr ("F")
-   (set "F"
-      (getd (cadr (cadr (getd "F")))) ) )
+   (set "F" (getd (cadadr (getd "F")))) )
 
 (load "@lib/debug.l")
 
