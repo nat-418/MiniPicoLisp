@@ -8,7 +8,7 @@ picoFiles = main.c gc.c apply.c flow.c sym.c subr.c math.c io.c
 
 CC = gcc
 
-picolisp: $(bin)/picolisp
+minipicolisp: $(bin)/minipicolisp
 
 .c.o:
 	echo $*.c:
@@ -18,11 +18,11 @@ picolisp: $(bin)/picolisp
 	-Wuninitialized -Wstrict-prototypes \
 	-D_GNU_SOURCE  $*.c
 
-$(bin)/picolisp: $(picoFiles:.c=.o)
+$(bin)/minipicolisp: $(picoFiles:.c=.o)
 	mkdir -p $(bin)
-	echo "  " link picolisp:
-	$(CC) -o $(bin)/picolisp $(picoFiles:.c=.o) -lc -lm
-	strip $(bin)/picolisp
+	echo "  " link minipicolisp:
+	$(CC) -o $(bin)/minipicolisp $(picoFiles:.c=.o) -lc -lm
+	strip $(bin)/minipicolisp
 
 $(picoFiles:.c=.o): pico.h sym.d rom.d ram.d
 
