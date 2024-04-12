@@ -1,0 +1,5 @@
+result
+*.o
+*.d
+bin/
+src/gen3m
